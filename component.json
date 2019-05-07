@@ -1,0 +1,67 @@
+{
+    "title": "LanguageTool",
+    "description": "Check texts for style and grammar issues with LanguageTool. See <a href='http://wiki.languagetool.org/public-http-api'>our wiki</a> for access limitations.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/languagetool.org/1.0.2/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://languagetool.org/api/v2",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "post_check": {
+            "main": "./lib/actions/post_check.js",
+            "title": "Check a text",
+            "description": "The main feature - check a text with LanguageTool for possible style and grammar issues.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_check.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_languages": {
+            "main": "./lib/actions/get_languages.js",
+            "title": "Get a list of supported languages.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_languages.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
